@@ -1,0 +1,56 @@
+<!-- programming-form.component.html -->
+<form [formGroup]="programmingForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" />
+    <div *ngIf="formControls.name.touched && formControls.name.hasError('required')">
+      Name is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="text" id="email" formControlName="email" />
+    <div *ngIf="formControls.email.touched && formControls.email.hasError('required')">
+      Email is required.
+    </div>
+    <div *ngIf="formControls.email.touched && formControls.email.hasError('email')">
+      Invalid email address.
+    </div>
+  </div>
+
+  <div>
+    <label>Programming Languages</label>
+    <div *ngFor="let language of programmingLanguages">
+      <input type="checkbox" [value]="language" formControlName="programmingLanguages" />
+      {{ language }}
+    </div>
+    <div *ngIf="formControls.programmingLanguages.touched && formControls.programmingLanguages.hasError('required')">
+      Select at least one programming language.
+    </div>
+  </div>
+
+  <div>
+    <label>Experience Level</label>
+    <div *ngFor="let level of experienceLevels">
+      <input type="radio" [value]="level" formControlName="experienceLevel" />
+      {{ level }}
+    </div>
+    <div *ngIf="formControls.experienceLevel.touched && formControls.experienceLevel.hasError('required')">
+      Select your experience level.
+    </div>
+  </div>
+
+  <div>
+    <label for="projectDescription">Project Description</label>
+    <textarea id="projectDescription" formControlName="projectDescription"></textarea>
+    <div *ngIf="formControls.projectDescription.touched && formControls.projectDescription.hasError('required')">
+      Project description is required.
+    </div>
+    <div *ngIf="formControls.projectDescription.touched && formControls.projectDescription.hasError('minlength')">
+      Project description must be at least 10 characters long.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="programmingForm.invalid">Submit</button>
+</form>
